@@ -1,7 +1,4 @@
-# Use phusion/baseimage as base image. To make your builds reproducible, make
-# sure you lock down to a specific version, not to `latest`!
-# See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
-# a list of version numbers.
+# NGINX + PHP-FPM
 FROM phusion/baseimage:0.9.15
 MAINTAINER Sebastian Gilits <sep.gil@gmail.com>
 
