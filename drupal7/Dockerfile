@@ -15,15 +15,15 @@ RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 CMD ["/sbin/my_init"]
 
 # Build packages first
-COPY ../packages.sh /build/packages.sh
+COPY ../nginx_php-fpm/packages.sh /build/packages.sh
 RUN /build/packages.sh
 
 # Setup nginx
-COPY ../nginx /build/nginx
+COPY ../nginx_php-fpm/nginx /build/nginx
 RUN /build/nginx/setup.sh
 
 # Setup php fpm
-COPY ../php-fpm /build/php-fpm
+COPY ../nginx_php-fpm/php-fpm /build/php-fpm
 RUN /build/php-fpm/setup.sh
 
 # Setup drush & drupal7
