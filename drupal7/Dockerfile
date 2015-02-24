@@ -14,20 +14,18 @@ RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
-# Build packages first
-COPY ../nginx_php-fpm/packages.sh /build/packages.sh
-RUN /build/packages.sh
-
-# Setup nginx
-COPY ../nginx_php-fpm/nginx /build/nginx
-RUN /build/nginx/setup.sh
-
-# Setup php fpm
-COPY ../nginx_php-fpm/php-fpm /build/php-fpm
-RUN /build/php-fpm/setup.sh
-
-# Setup drush & drupal7
+# Copy the setup files to a build folder
+COPY nginx_php-fpm/packages.sh /build/packages.sh
+COPY nginx_php-fpm/nginx /build/nginx
+COPY nginx_php-fpm/php-fpm /build/php-fpm
 COPY ./drupal7 /build/drupal7
+
+RUN chmod -R +x /build
+
+RUN ls -l /build/
+RUN /build/packages.sh
+RUN /build/nginx/setup.sh
+RUN /build/php-fpm/setup.sh
 RUN /build/drupal7/setup.sh
 
 # Clean up the build folder.
